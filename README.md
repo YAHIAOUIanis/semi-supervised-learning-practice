@@ -1,6 +1,6 @@
 # semi-supervised-learning-practice
 
-###Quelques commandes basiques de Git :
+### Quelques commandes basiques de Git :
 
 Une fois qu'un dépôt est cloné, vous travaillerez à l'intérieur de la branche par défaut (la valeur par défaut est `main`)
 ```
@@ -8,7 +8,7 @@ git clone https://github.com/YAHIAOUIanis/semi-supervised-learning-practice.git 
 ```
 Commande de base, obtenir les modifications de la branche actuelle vers le référentiel distant
 ```
-git pull (pour)
+git pull
 ```
 Pour ajouter un fichier afin de le commiter
 ```
