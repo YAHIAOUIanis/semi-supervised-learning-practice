@@ -31,13 +31,19 @@ from sklearn import datasets
 from sklearn.semi_supervised import LabelSpreading
 from sklearn.metrics import classification_report, confusion_matrix
 
+#on charge les datasets des chiffres
 digits = datasets.load_digits()
+
+#on séléectionne les indices des datasets des chiffres aléatoirement
 rng = np.random.RandomState(0)
 indices = np.arange(len(digits.data))
 rng.shuffle(indices)
 
+#La matrice de données aplatie.
 X = digits.data[indices[:330]]
+#La cible de classement
 y = digits.target[indices[:330]]
+#Les données d image brutes.
 images = digits.images[indices[:330]]
 
 n_total_samples = len(y)
