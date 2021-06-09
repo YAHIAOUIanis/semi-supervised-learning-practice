@@ -31,19 +31,15 @@ from sklearn import datasets
 from sklearn.semi_supervised import LabelSpreading
 from sklearn.metrics import classification_report, confusion_matrix
 
-#on charge les datasets des chiffres
 digits = datasets.load_digits()
-
-#on séléectionne les indices des datasets des chiffres aléatoirement
 rng = np.random.RandomState(0)
 indices = np.arange(len(digits.data))
 rng.shuffle(indices)
 
-#La matrice de données aplatie.
+# X represente les coordonées des pixels représentant le chiffre
+# y contient les labels de chaque chiffre
 X = digits.data[indices[:330]]
-#La cible de classement
 y = digits.target[indices[:330]]
-#Les données d image brutes.
 images = digits.images[indices[:330]]
 
 n_total_samples = len(y)
@@ -54,16 +50,20 @@ unlabeled_indices = np.arange(n_total_samples)[n_labeled_points:]
 f = plt.figure()
 
 for i in range(max_iterations):
+    #Condition de sortie (si tout est labelisé)
     if len(unlabeled_indices) == 0:
         print("No unlabeled items left to label.")
         break
+    #Délabelisation des données que l'on veut non labelisé (pour le sujet semi supervised)
     y_train = np.copy(y)
     y_train[unlabeled_indices] = -1
-
+    #Initialisation du model semi supervised
     lp_model = LabelSpreading(gamma=0.25, max_iter=20)
     lp_model.fit(X, y_train)
-
+ 
+    #Prédiction de TOUT les unlabeled
     predicted_labels = lp_model.transduction_[unlabeled_indices]
+    #VRAI Label
     true_labels = y[unlabeled_indices]
 
     cm = confusion_matrix(true_labels, predicted_labels,
